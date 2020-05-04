@@ -7,16 +7,25 @@ You can use this preset to toggle up to 2 headphones.
 
 | Off | On | On<br>(one pod in case) |
 |:----:|:----:|:----:|
-|![off](/screenshots/off.png)|![on](/screenshots/on.png)|![on_](/screenshots/on_one_in_case.png)|
+|<img src="screenshots/off.png" width="100">|<img src="screenshots/on.png" width="100">|<img src="screenshots/on_one_in_case.png" width="100">|
 
 ## Setup
 *Ensure that your headphone(s) appears on the Bluetooth panel of System Preferences.*
 
 1. Download and double click `AppleHeadphone.bttpreset` to import it into BTT
-2. Go to **Touch Bar** section (⌘+1), click on the `shell script/Tasks` widget and change `Launch Path` to the output of `which python3` in Terminal.![](/screenshots/terminal.png)![](/screenshots/setting.png)
-3. Go to **Named & Other Trigger** section (⌘+9), find and expand the following triggers, Toggle...#1 is activated by tapping, and Toggle...#2 is by long pressing.![](/screenshots/setting1.png)
+2. Go to **Touch Bar** section (⌘+1), click on the `shell script/Tasks` widget and change `Launch Path` to the output of `which python3` in Terminal.
+\
+<img src="screenshots/terminal.png" width="300">
+<img src="screenshots/setting.png" width="300">
+
+3. Go to **Named & Other Trigger** section (⌘+9), find and expand the following triggers, Toggle...#1 is activated by tapping, and Toggle...#2 is by long pressing.
+\
+<img src="screenshots/setting1.png" width="300">
+\
 Click on `Run Real JavaScript` and replace the selected string with the name of your device.
-![](/screenshots/setting2.png)
+\
+<img src="screenshots/setting2.png" width="300">
+\
 Then click on Action 2 and choose your device accordingly.
 
 ## Possible Questions
@@ -33,7 +42,9 @@ A: That's simple, type/paste the name of your device in `Environment Variables` 
 ---
 Q: How to change background color of this widget?
 
-A:![](/screenshots/setting3.png)
+A:
+
+<img src="screenshots/setting3.png" width="300">
 
 ---
 Q: How does the python script do it?
