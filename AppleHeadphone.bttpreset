@@ -1,7 +1,7 @@
 {
   "BTTPresetName" : "AppleHeadphone",
   "BTTPresetColor" : "227.472499, 239.206679, 227.343184, 255.000000",
-  "BTTPresetUUID" : "C2144170-9157-4A28-AC59-C2A3F29A86DB",
+  "BTTPresetUUID" : "9D1961F2-9EFC-420C-81DE-093A339E3A30",
   "BTTPresetContent" : [
     {
       "BTTAppBundleIdentifier" : "com.apple.finder",
@@ -20,61 +20,6 @@
       },
       "BTTTriggers" : [
         {
-          "BTTTriggerType" : 643,
-          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #2",
-          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
-          "BTTPredefinedActionType" : 281,
-          "BTTPredefinedActionName" : "Run Real JavaScript",
-          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"Solo Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
-          "BTTTriggerName" : "Toggle Apple Headphone #2",
-          "BTTEnabled2" : 1,
-          "BTTAlternateModifierKeys" : 0,
-          "BTTRepeatDelay" : 0,
-          "BTTUUID" : "71B87197-E9E8-410B-ADDC-1A14B7B0A7F1",
-          "BTTNotesInsteadOfDescription" : 0,
-          "BTTEnabled" : 1,
-          "BTTModifierMode" : 0,
-          "BTTOrder" : 3,
-          "BTTDisplayOrder" : 0
-        },
-        {
-          "BTTTriggerType" : 643,
-          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #1",
-          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
-          "BTTPredefinedActionType" : 281,
-          "BTTPredefinedActionName" : "Run Real JavaScript",
-          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"Noon’s AirPods Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
-          "BTTTriggerName" : "Toggle Apple Headphone #1",
-          "BTTEnabled2" : 1,
-          "BTTAlternateModifierKeys" : 0,
-          "BTTRepeatDelay" : 0,
-          "BTTUUID" : "5856CF87-FBA5-4897-953A-D26A0EC802AE",
-          "BTTNotesInsteadOfDescription" : 0,
-          "BTTEnabled" : 1,
-          "BTTModifierMode" : 0,
-          "BTTOrder" : 2,
-          "BTTDisplayOrder" : 0,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
-              "BTTPredefinedActionType" : 276,
-              "BTTPredefinedActionName" : "Toggle Bluetooth Device Connection",
-              "BTTActionBluetoothDeviceName" : "Noon’s AirPods Pro",
-              "BTTActionBluetoothDeviceAddress" : "e4-76-84-16-f5-e5",
-              "BTTEnabled2" : 1,
-              "BTTAlternateModifierKeys" : 0,
-              "BTTRepeatDelay" : 0,
-              "BTTUUID" : "56EB98C5-BDF2-462F-8E97-55045AB0185B",
-              "BTTNotesInsteadOfDescription" : 0,
-              "BTTEnabled" : 1,
-              "BTTModifierMode" : 0,
-              "BTTOrder" : 0,
-              "BTTDisplayOrder" : 0
-            }
-          ]
-        },
-        {
           "BTTWidgetName" : "Switching",
           "BTTTriggerType" : 642,
           "BTTTriggerTypeDescription" : "Shell Script \/ Task Widget",
@@ -82,7 +27,7 @@
           "BTTPredefinedActionType" : 248,
           "BTTPredefinedActionName" : "Trigger Named Trigger (Configured in Other Tab)",
           "BTTNamedTriggerToTrigger" : "Toggle Apple Headphone #1",
-          "BTTShellScriptWidgetGestureConfig" : "\/Library\/Frameworks\/Python.framework\/Versions\/3.7\/bin\/python3.7:::-c:::-:::devNAME=\"Noon’s AirPods Pro\"",
+          "BTTShellScriptWidgetGestureConfig" : "\/usr\/local\/bin\/python3:::-c:::-:::devNAME=\"\"",
           "BTTEnabled2" : 1,
           "BTTRepeatDelay" : 0,
           "BTTUUID" : "D0657B9A-53F4-49CE-8568-6D8248D0000E",
@@ -113,6 +58,76 @@
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarItemPadding" : -10
           }
+        },
+        {
+          "BTTTriggerType" : 643,
+          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #2",
+          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+          "BTTPredefinedActionType" : 281,
+          "BTTPredefinedActionName" : "Run Real JavaScript",
+          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"Solo Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
+          "BTTTriggerName" : "Toggle Apple Headphone #2",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "71B87197-E9E8-410B-ADDC-1A14B7B0A7F1",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 3,
+          "BTTDisplayOrder" : 0,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+              "BTTPredefinedActionType" : 276,
+              "BTTPredefinedActionName" : "Toggle Bluetooth Device Connection",
+              "BTTEnabled2" : 1,
+              "BTTAlternateModifierKeys" : 0,
+              "BTTRepeatDelay" : 0,
+              "BTTUUID" : "4520723D-EE0C-424F-BB23-E6D9F8E84203",
+              "BTTNotesInsteadOfDescription" : 0,
+              "BTTEnabled" : 1,
+              "BTTModifierMode" : 0,
+              "BTTOrder" : 0,
+              "BTTDisplayOrder" : 0
+            }
+          ]
+        },
+        {
+          "BTTTriggerType" : 643,
+          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #1",
+          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+          "BTTPredefinedActionType" : 281,
+          "BTTPredefinedActionName" : "Run Real JavaScript",
+          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"AirPods Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
+          "BTTTriggerName" : "Toggle Apple Headphone #1",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "5856CF87-FBA5-4897-953A-D26A0EC802AE",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 2,
+          "BTTDisplayOrder" : 0,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+              "BTTPredefinedActionType" : 276,
+              "BTTPredefinedActionName" : "Toggle Bluetooth Device Connection",
+              "BTTEnabled2" : 1,
+              "BTTAlternateModifierKeys" : 0,
+              "BTTRepeatDelay" : 0,
+              "BTTUUID" : "7B84BB83-39F8-44F8-A1D5-C3D1F48E5011",
+              "BTTNotesInsteadOfDescription" : 0,
+              "BTTEnabled" : 1,
+              "BTTModifierMode" : 0,
+              "BTTOrder" : 0,
+              "BTTDisplayOrder" : 0
+            }
+          ]
         }
       ]
     }
