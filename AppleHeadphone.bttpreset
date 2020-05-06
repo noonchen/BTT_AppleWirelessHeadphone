@@ -1,7 +1,7 @@
 {
   "BTTPresetName" : "AppleHeadphone",
   "BTTPresetColor" : "227.472499, 239.206679, 227.343184, 255.000000",
-  "BTTPresetUUID" : "9D1961F2-9EFC-420C-81DE-093A339E3A30",
+  "BTTPresetUUID" : "F5CA2182-4489-4336-95F1-A52297FC817B",
   "BTTPresetContent" : [
     {
       "BTTAppBundleIdentifier" : "com.apple.finder",
@@ -43,7 +43,7 @@
             "BTTTouchBarButtonTextAlignment" : 0,
             "BTTTouchBarItemPlacement" : 0,
             "BTTTouchBarButtonFontSize" : 15,
-            "BTTTouchBarShellScriptString" : "#!\/usr\/bin\/env python3\n#encoding:utf-8\nfrom subprocess import check_output\nimport plistlib, os\n\ndisconnectedBGColor = \"59,59,59,255\"\nconnectedBGColor = \"110,193,56,255\"\n# devNAME = \"Noon’s AirPods Pro\" # For testing only\ndevNAME = os.environ['devNAME'].strip('\"')\nosascript = ['osascript']\nasobjc = ['''use framework \"IOBluetooth\"''',\n          '''set deviceList to current application's IOBluetoothDevice's pairedDevices()''',\n          '''set devNames to (deviceList's valueForKey:\"name\") as list''',\n          '''set devStatus to (deviceList's valueForKey:\"connected\") as list''',\n          '''set devAddress to (deviceList's valueForKey:\"addressString\") as list''',\n          '[devNames, devStatus, devAddress]']\nBT_plist_path = \"\/Library\/Preferences\/com.apple.Bluetooth.plist\"\nIOBTUI_resPath = \"\/System\/Library\/Frameworks\/IOBluetoothUI.framework\/Versions\/A\/Resources\"\n\ndef jsonfy(text=\"\", icon_data=\"\", icon_path=\"\", background_color=\"\", font_color=\"\", font_size=0):\n    '''\n    Convert data into JSON string for BTT to render\n    '''\n    import json\n    dict = {}\n    if text != \"\": dict[\"text\"] = text\n    if icon_data != \"\": dict[\"icon_data\"] = icon_data\n    if icon_path != \"\": dict[\"icon_path\"] = icon_path\n    if background_color != \"\": dict[\"background_color\"] = background_color\n    if font_color != \"\": dict[\"font_color\"] = font_color\n    if font_size != 0: dict[\"font_size\"] = font_size\n    return json.dumps(dict, ensure_ascii=False)\n\ndef getIconPath(IOBTUI_resPath, ProductID):\n    with os.scandir(IOBTUI_resPath) as it:\n        for item in it:\n            if item.name.startswith(\"AssetPaths\") and item.name.endswith(\".plist\"):\n                info_dict = plistlib.load(open(item.path, 'rb'))\n                if ProductID in info_dict:\n                    return os.path.join(IOBTUI_resPath, info_dict[ProductID]['ImageName'])\n\ndef formatBatteryString(devCache, ProductID, connected):\n    TwoBatteryProduct = [\"Ox2002\", \"0x200F\", \"0x200E\"]\n    if ProductID in TwoBatteryProduct:\n        fontsize = 11\n        Lbat = str(devCache[\"BatteryPercentLeft\"]) if connected else '0'\n        Rbat = str(devCache[\"BatteryPercentRight\"]) if connected else '0'\n        return fontsize, \"🅛 %s\\n🅡 %s\"%(Lbat+'%' if Lbat!='0' else 'NC', Rbat+'%' if Rbat!='0' else 'NC')\n    else:\n        fontsize = 15\n        bat = str(devCache[\"BatteryPercentSingle\"]) if connected else '0'\n        return fontsize, \"%s\"%(bat+'%' if bat!='0' else 'NC')\n\ndef main():\n    # Get name, status and mac addr of current BT devices\n    [osascript.extend([\"-e\", L]) for L in asobjc]\n    rawInfo = check_output(osascript).decode('utf-8').strip().split(', ')\n    N_devs = int(len(rawInfo)\/3)\n    BT_dict = dict(zip(rawInfo[:N_devs], [[rawInfo[N_devs+i], rawInfo[N_devs+i+4]] for i in range(N_devs)]))\n\n    if devNAME in BT_dict:\n        connected = True if BT_dict[devNAME][0] == \"1\" else False\n        macAddr = BT_dict[devNAME][1]\n        # Get detailed data from BT device cache\n        devCache = plistlib.load(open(BT_plist_path, 'rb'))[\"DeviceCache\"][macAddr]\n        \n        ProductID = \"0x%X\"%int(devCache[\"ProductID\"])\n        IconPath = getIconPath(IOBTUI_resPath, ProductID)\n        fontsize, BatteryString = formatBatteryString(devCache, ProductID, connected)\n        BGcolor = connectedBGColor if connected else disconnectedBGColor\n        return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, background_color=BGcolor)\n    else:\n        # Name is not correct or the device hasn't been connected to mac before\n        return jsonfy(text=\"Not configured\", background_color=disconnectedBGColor)\n    \nif __name__ == \"__main__\":\n    print(main())\n",
+            "BTTTouchBarShellScriptString" : "#!\/usr\/bin\/env python3\n#encoding:utf-8\nfrom subprocess import check_output\nimport plistlib, os\n\ndisconnectedBGColor = \"59,59,59,255\"\nconnectedBGColor = \"110,193,56,255\"\n# devNAME = \"Noon’s AirPods Pro\" # For testing only\ndevNAME = os.environ['devNAME'].strip('\"')\nosascript = ['osascript']\nasobjc = ['''use framework \"IOBluetooth\"''',\n          '''set deviceList to current application's IOBluetoothDevice's pairedDevices()''',\n          '''set devNames to (deviceList's valueForKey:\"name\") as list''',\n          '''set devStatus to (deviceList's valueForKey:\"connected\") as list''',\n          '''set devAddress to (deviceList's valueForKey:\"addressString\") as list''',\n          '[devNames, devStatus, devAddress]']\nBT_plist_path = \"\/Library\/Preferences\/com.apple.Bluetooth.plist\"\nIOBTUI_resPath = \"\/System\/Library\/Frameworks\/IOBluetoothUI.framework\/Versions\/A\/Resources\"\n\ndef jsonfy(text=\"\", icon_data=\"\", icon_path=\"\", background_color=\"\", font_color=\"\", font_size=0):\n    '''\n    Convert data into JSON string for BTT to render\n    '''\n    import json\n    dict = {}\n    if text != \"\": dict[\"text\"] = text\n    if icon_data != \"\": dict[\"icon_data\"] = icon_data\n    if icon_path != \"\": dict[\"icon_path\"] = icon_path\n    if background_color != \"\": dict[\"background_color\"] = background_color\n    if font_color != \"\": dict[\"font_color\"] = font_color\n    if font_size != 0: dict[\"font_size\"] = font_size\n    return json.dumps(dict, ensure_ascii=False)\n\ndef getIconPath(IOBTUI_resPath, ProductID):\n    with os.scandir(IOBTUI_resPath) as it:\n        for item in it:\n            if item.name.startswith(\"AssetPaths\") and item.name.endswith(\".plist\"):\n                info_dict = plistlib.load(open(item.path, 'rb'))\n                if ProductID in info_dict:\n                    return os.path.join(IOBTUI_resPath, info_dict[ProductID]['ImageName'])\n\ndef formatBatteryString(devCache, ProductID, connected):\n    TwoBatteryProduct = [\"0x2002\", \"0x200F\", \"0x200E\"]\n    if ProductID in TwoBatteryProduct:\n        fontsize = 11\n        Lbat = str(devCache[\"BatteryPercentLeft\"]) if connected else '0'\n        Rbat = str(devCache[\"BatteryPercentRight\"]) if connected else '0'\n        return fontsize, \"🅛 %s\\n🅡 %s\"%(Lbat+'%' if Lbat!='0' else 'NC', Rbat+'%' if Rbat!='0' else 'NC')\n    else:\n        fontsize = 15\n        bat = str(devCache[\"BatteryPercentSingle\"]) if connected else '0'\n        return fontsize, \"%s\"%(bat+'%' if bat!='0' else 'NC')\n\ndef main():\n    # Get name, status and mac addr of current BT devices\n    [osascript.extend([\"-e\", L]) for L in asobjc]\n    rawInfo = check_output(osascript).decode('utf-8').strip().split(', ')\n    N_devs = int(len(rawInfo)\/3)\n    BT_dict = dict(zip(rawInfo[:N_devs], [[rawInfo[N_devs+i], rawInfo[2*N_devs+i]] for i in range(N_devs)]))\n\n    if devNAME in BT_dict:\n        connected = True if BT_dict[devNAME][0] == \"1\" else False\n        macAddr = BT_dict[devNAME][1]\n        # Get detailed data from BT device cache\n        devCache = plistlib.load(open(BT_plist_path, 'rb'))[\"DeviceCache\"][macAddr]\n        \n        if \"ProductID\" in devCache:\n            ProductID = \"0x%X\"%int(devCache[\"ProductID\"])\n            IconPath = getIconPath(IOBTUI_resPath, ProductID)\n            fontsize, BatteryString = formatBatteryString(devCache, ProductID, connected)\n            BGcolor = connectedBGColor if connected else disconnectedBGColor\n            return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, background_color=BGcolor)\n        else:\n            return jsonfy(text=\"ID not found\", background_color=disconnectedBGColor)\n    else:\n        # Name is not correct or the device hasn't been connected to mac before\n        return jsonfy(text=\"Not configured\", background_color=disconnectedBGColor)\n    \nif __name__ == \"__main__\":\n    print(main())\n",
             "BTTTouchBarAlternateBackgroundColor" : "75.323769, 75.323769, 75.323769, 255.000000",
             "BTTTouchBarAlwaysShowButton" : false,
             "BTTTBWidgetWidth" : 400,
@@ -58,41 +58,6 @@
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarItemPadding" : -10
           }
-        },
-        {
-          "BTTTriggerType" : 643,
-          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #2",
-          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
-          "BTTPredefinedActionType" : 281,
-          "BTTPredefinedActionName" : "Run Real JavaScript",
-          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"Solo Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
-          "BTTTriggerName" : "Toggle Apple Headphone #2",
-          "BTTEnabled2" : 1,
-          "BTTAlternateModifierKeys" : 0,
-          "BTTRepeatDelay" : 0,
-          "BTTUUID" : "71B87197-E9E8-410B-ADDC-1A14B7B0A7F1",
-          "BTTNotesInsteadOfDescription" : 0,
-          "BTTEnabled" : 1,
-          "BTTModifierMode" : 0,
-          "BTTOrder" : 3,
-          "BTTDisplayOrder" : 0,
-          "BTTAdditionalActions" : [
-            {
-              "BTTTriggerType" : -1,
-              "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
-              "BTTPredefinedActionType" : 276,
-              "BTTPredefinedActionName" : "Toggle Bluetooth Device Connection",
-              "BTTEnabled2" : 1,
-              "BTTAlternateModifierKeys" : 0,
-              "BTTRepeatDelay" : 0,
-              "BTTUUID" : "4520723D-EE0C-424F-BB23-E6D9F8E84203",
-              "BTTNotesInsteadOfDescription" : 0,
-              "BTTEnabled" : 1,
-              "BTTModifierMode" : 0,
-              "BTTOrder" : 0,
-              "BTTDisplayOrder" : 0
-            }
-          ]
         },
         {
           "BTTTriggerType" : 643,
@@ -121,6 +86,41 @@
               "BTTAlternateModifierKeys" : 0,
               "BTTRepeatDelay" : 0,
               "BTTUUID" : "7B84BB83-39F8-44F8-A1D5-C3D1F48E5011",
+              "BTTNotesInsteadOfDescription" : 0,
+              "BTTEnabled" : 1,
+              "BTTModifierMode" : 0,
+              "BTTOrder" : 0,
+              "BTTDisplayOrder" : 0
+            }
+          ]
+        },
+        {
+          "BTTTriggerType" : 643,
+          "BTTTriggerTypeDescription" : "Named Trigger: Toggle Apple Headphone #2",
+          "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+          "BTTPredefinedActionType" : 281,
+          "BTTPredefinedActionName" : "Run Real JavaScript",
+          "BTTRealJavaScriptString" : "(async ()=> {\n\n\/\/Change it to the name of your device \nlet devNAME = \"Solo Pro\" \n\nvar props = await callBTT('get_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E'});\nvar oldConfig = JSON.parse(props)[\"BTTShellScriptWidgetGestureConfig\"]\nvar newConfig = oldConfig.split('=')[0].concat('=\"', devNAME, '\"')\n\nvar updateDefinition = {\"BTTShellScriptWidgetGestureConfig\" : newConfig}\n\ncallBTT('update_trigger', {uuid: 'D0657B9A-53F4-49CE-8568-6D8248D0000E',json: JSON.stringify(updateDefinition)});\n\nreturnToBTT(newConfig);\n})();",
+          "BTTTriggerName" : "Toggle Apple Headphone #2",
+          "BTTEnabled2" : 1,
+          "BTTAlternateModifierKeys" : 0,
+          "BTTRepeatDelay" : 0,
+          "BTTUUID" : "71B87197-E9E8-410B-ADDC-1A14B7B0A7F1",
+          "BTTNotesInsteadOfDescription" : 0,
+          "BTTEnabled" : 1,
+          "BTTModifierMode" : 0,
+          "BTTOrder" : 3,
+          "BTTDisplayOrder" : 0,
+          "BTTAdditionalActions" : [
+            {
+              "BTTTriggerType" : -1,
+              "BTTTriggerClass" : "BTTTriggerTypeOtherTriggers",
+              "BTTPredefinedActionType" : 276,
+              "BTTPredefinedActionName" : "Toggle Bluetooth Device Connection",
+              "BTTEnabled2" : 1,
+              "BTTAlternateModifierKeys" : 0,
+              "BTTRepeatDelay" : 0,
+              "BTTUUID" : "4520723D-EE0C-424F-BB23-E6D9F8E84203",
               "BTTNotesInsteadOfDescription" : 0,
               "BTTEnabled" : 1,
               "BTTModifierMode" : 0,

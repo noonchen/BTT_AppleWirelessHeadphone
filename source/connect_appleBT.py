@@ -40,7 +40,7 @@ def getIconPath(IOBTUI_resPath, ProductID):
                     return os.path.join(IOBTUI_resPath, info_dict[ProductID]['ImageName'])
 
 def formatBatteryString(devCache, ProductID, connected):
-    TwoBatteryProduct = ["Ox2002", "0x200F", "0x200E"]
+    TwoBatteryProduct = ["0x2002", "0x200F", "0x200E"]
     if ProductID in TwoBatteryProduct:
         fontsize = 11
         Lbat = str(devCache["BatteryPercentLeft"]) if connected else '0'
@@ -56,7 +56,7 @@ def main():
     [osascript.extend(["-e", L]) for L in asobjc]
     rawInfo = check_output(osascript).decode('utf-8').strip().split(', ')
     N_devs = int(len(rawInfo)/3)
-    BT_dict = dict(zip(rawInfo[:N_devs], [[rawInfo[N_devs+i], rawInfo[N_devs+i+4]] for i in range(N_devs)]))
+    BT_dict = dict(zip(rawInfo[:N_devs], [[rawInfo[N_devs+i], rawInfo[2*N_devs+i]] for i in range(N_devs)]))
 
     if devNAME in BT_dict:
         connected = True if BT_dict[devNAME][0] == "1" else False
@@ -64,11 +64,14 @@ def main():
         # Get detailed data from BT device cache
         devCache = plistlib.load(open(BT_plist_path, 'rb'))["DeviceCache"][macAddr]
         
-        ProductID = "0x%X"%int(devCache["ProductID"])
-        IconPath = getIconPath(IOBTUI_resPath, ProductID)
-        fontsize, BatteryString = formatBatteryString(devCache, ProductID, connected)
-        BGcolor = connectedBGColor if connected else disconnectedBGColor
-        return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, background_color=BGcolor)
+        if "ProductID" in devCache:
+            ProductID = "0x%X"%int(devCache["ProductID"])
+            IconPath = getIconPath(IOBTUI_resPath, ProductID)
+            fontsize, BatteryString = formatBatteryString(devCache, ProductID, connected)
+            BGcolor = connectedBGColor if connected else disconnectedBGColor
+            return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, background_color=BGcolor)
+        else:
+            return jsonfy(text="ID not found", background_color=disconnectedBGColor)
     else:
         # Name is not correct or the device hasn't been connected to mac before
         return jsonfy(text="Not configured", background_color=disconnectedBGColor)
