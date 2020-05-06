@@ -7,25 +7,20 @@ You can use this preset to toggle up to 2 headphones.
 
 | Off | On | On<br>(one pod in case) |
 |:----:|:----:|:----:|
-|<img src="screenshots/off.png" width="100">|<img src="screenshots/on.png" width="100">|<img src="screenshots/on_one_in_case.png" width="100">|
+|<img src="screenshots/off.png" height="50">|<img src="screenshots/on.png" height="50">|<img src="screenshots/on_one_in_case.png" height="50">|
 
 ## Setup
 *Ensure that your headphone(s) appears on the Bluetooth panel of System Preferences.*
 
 1. Download and double click `AppleHeadphone.bttpreset` to import it into BTT
 2. Go to **Touch Bar** section (⌘+1), click on the `shell script/Tasks` widget and change `Launch Path` to the output of `which python3` in Terminal.
-\
-<img src="screenshots/terminal.png" width="300">
-<img src="screenshots/setting.png" width="300">
+<img src="screenshots/terminal.png" width="450">
+<img src="screenshots/setting.png" width="450">
 
 3. Go to **Named & Other Trigger** section (⌘+9), find and expand the following triggers, Toggle...#1 is activated by tapping, and Toggle...#2 is by long pressing.
-\
-<img src="screenshots/setting1.png" width="300">
-\
+<img src="screenshots/setting1.png" width="600">
 Click on `Run Real JavaScript` and replace the selected string with the name of your device.
-\
-<img src="screenshots/setting2.png" width="300">
-\
+<img src="screenshots/setting2.png" width="450">
 Then click on Action 2 and choose your device accordingly.
 
 ## Possible Questions
@@ -44,7 +39,7 @@ Q: How to change background color of this widget?
 
 A:
 
-<img src="screenshots/setting3.png" width="300">
+<img src="screenshots/setting3.png" width="450">
 
 ---
 Q: How does the python script do it?
