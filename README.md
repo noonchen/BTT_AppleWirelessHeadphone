@@ -2,12 +2,19 @@
 This BetterTouchTool(BTT) preset shows the icon and battery info of your Apple wireless headphones on the touch bar, it will support **ALL** apple headphones and furture modes, such as AirPods (Pro), BestsX, etc, as long as your macOS is up to date.
 ## Functionality
 You can use this preset to toggle up to 2 headphones.
+
+**v1.0:**
 + ***Tap*** to toggle headphone #1
 + ***Long press*** to toggle headphone #2
 
-| Off | On | On<br>(one pod in case) |
-|:----:|:----:|:----:|
-|<img src="screenshots/off.png" height="50">|<img src="screenshots/on.png" height="50">|<img src="screenshots/on_one_in_case.png" height="50">|
+**v1.1:**
++ ***Tap*** to [toggle or switch](https://github.com/noonchen/BTAudioSwitch#readme) to headphone #1
++ ***Long press*** to [toggle or switch](https://github.com/noonchen/BTAudioSwitch#readme) to headphone #2
+
+| Model | Off | On | On<br>(one pod in case) |
+|:----:|:----:|:----:|:----:|
+| AirPods Pro |<img src="screenshots/airpodsPro_off.png" height="50">|<img src="screenshots/airpodsPro_on.png" height="50">|<img src="screenshots/airpodsPro_on_one_in_case.png" height="50">|
+| BeatsX |<img src="screenshots/beatsx_off.png" height="50">|<img src="screenshots/beatsx_on.png" height="50">| - |
 
 ## Setup
 *Ensure that your headphone(s) appears on the Bluetooth panel of System Preferences.*
