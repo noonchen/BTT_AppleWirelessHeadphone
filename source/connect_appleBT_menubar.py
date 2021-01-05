@@ -3,10 +3,8 @@
 from subprocess import check_output
 import plistlib, os
 
-disconnectedBGColor = "59,59,59,255"
-connectedBGColor = "110,193,56,255"
-disconnectedFontColor = ""  # Empty string means default color
-connectedFontColor = ""
+disconnectedColor = "59,59,59,255"
+connectedColor = "110,193,56,255"
 # devNAME = "Noon’s AirPods Pro" # For testing only
 devNAME = "" if not 'devNAME' in os.environ else os.environ['devNAME'].strip('"')
 osascript = ['osascript']
@@ -46,15 +44,17 @@ def getIconPath(IOBTUI_resPath, ProductID):
 
 def formatBatteryString(devCache, ProductID, connected):
     TwoBatteryProduct = ["0x2002", "0x200F", "0x200E"]
+    font_color = connectedColor if connected else disconnectedColor
+    
     if ProductID in TwoBatteryProduct:
-        fontsize = 11
+        fontsize = 9
         Lbat = str(devCache["BatteryPercentLeft"]) if connected else '0'
         Rbat = str(devCache["BatteryPercentRight"]) if connected else '0'
-        return fontsize, "🅛 %s\n🅡 %s"%(Lbat+'%' if Lbat!='0' else 'NC', Rbat+'%' if Rbat!='0' else 'NC')
+        return fontsize, "🅛 %s\n🅡 %s"%(Lbat+'%' if Lbat!='0' else 'NC', Rbat+'%' if Rbat!='0' else 'NC'), font_color
     else:
-        fontsize = 15
+        fontsize = 12
         bat = str(devCache["BatteryPercentSingle"]) if connected else '0'
-        return fontsize, "%s"%(bat+'%' if bat!='0' else 'NC')
+        return fontsize, "%s"%(bat+'%' if bat!='0' else 'NC'), font_color
 
 def main():
     # Get name, status and mac addr of current BT devices
@@ -72,10 +72,9 @@ def main():
         if "ProductID" in devCache:
             ProductID = "0x%X"%int(devCache["ProductID"])
             IconPath = getIconPath(IOBTUI_resPath, ProductID)
-            fontsize, BatteryString = formatBatteryString(devCache, ProductID, connected)
-            BGcolor = connectedBGColor if connected else disconnectedBGColor
-            font_color = connectedFontColor if connected else disconnectedFontColor
-            return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, background_color=BGcolor, font_color=font_color)
+            fontsize, BatteryString, font_color = formatBatteryString(devCache, ProductID, connected)
+            # BGcolor = connectedBGColor if connected else disconnectedBGColor
+            return jsonfy(text=BatteryString, icon_path=IconPath, font_size=fontsize, font_color=font_color)
         else:
             return jsonfy(text="Product not\nfound", font_size=9)
     else:
